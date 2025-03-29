@@ -1,0 +1,10 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &__actions {
+    display: flex;
+    gap: 5px;
+  }
+}
