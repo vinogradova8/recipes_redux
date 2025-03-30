@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDebounce } from './useDebounce';
@@ -27,15 +26,17 @@ export function useRecipes() {
     setSearchParams(params);
   }, [appliedQuery, searchParams, setSearchParams]);
 
-  const { data: recipes = [] } = useQuery({
+  const { data: recipes = [], isLoading: isRecipesLoading } = useQuery({
     queryKey: ['recipes', appliedQuery],
     queryFn: () => recipesService.getRecipes(appliedQuery),
   });
 
-  const { data: categories = [] } = useQuery({
+  const { data: categories = [], isLoading: isCategoriesLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: () => recipesService.getCategories(),
   });
+
+  const isLoading = isRecipesLoading || isCategoriesLoading;
 
   const filteredRecipes = useMemo(() => {
     return (
@@ -54,33 +55,6 @@ export function useRecipes() {
     category,
     searchParams,
     setSearchParams,
+    isLoading,
   };
 }
-
-// useEffect(() => {
-//   const loadRecipes = async () => {
-//     try {
-//       const meals = await recipesService.getRecipes(appliedQuery);
-
-//       setRecipes(meals);
-//     } catch (error) {
-//       console.error('Error fetching recipes:', error);
-//     }
-//   };
-
-//   loadRecipes();
-// }, [appliedQuery]);
-
-// useEffect(() => {
-//   const loadCategories = async () => {
-//     try {
-//       const responce = await recipesService.getCategories();
-
-//       setCategories(responce);
-//     } catch (error) {
-//       console.error('Error fetching categories:', error);
-//     }
-//   };
-
-//   loadCategories();
-// }, []);

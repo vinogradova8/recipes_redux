@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { RecipeFull } from '../../types/RecipeFull';
 import './RecipeDetailsPage.scss';
@@ -7,6 +6,8 @@ import { RootState } from '../../store';
 import { addToCart, removeFromCart } from '../../features/cart';
 import { useQuery } from '@tanstack/react-query';
 import { recipesService } from '../../api/recipesApi';
+import { Loader } from '../Loader';
+import { useMemo } from 'react';
 
 export const RecipeDetailsPage: React.FC = ({}) => {
   const { itemId } = useParams<{ itemId: string }>();
@@ -15,13 +16,16 @@ export const RecipeDetailsPage: React.FC = ({}) => {
 
   const dispatch = useDispatch();
 
-  const { data: recipe } = useQuery<RecipeFull | undefined>({
+  const { isLoading, data: recipe } = useQuery<RecipeFull | undefined>({
     queryKey: ['recipe', itemId],
     queryFn: () => recipesService.getRecipe(itemId!),
     enabled: !!itemId,
   });
 
-  const isSelected = cart.some(r => r.idMeal === recipe?.idMeal);
+  const isSelected = useMemo(
+    () => cart.some(r => r.idMeal === recipe?.idMeal),
+    [cart, recipe?.idMeal],
+  );
 
   const handleAddToCart = () => {
     if (!recipe) {
@@ -83,6 +87,10 @@ export const RecipeDetailsPage: React.FC = ({}) => {
   };
 
   const ingredients = getIngredients();
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="recipe-details">

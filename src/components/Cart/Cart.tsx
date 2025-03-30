@@ -5,6 +5,7 @@ import { useRecipes } from '../../hooks/useRecipes';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useEffect } from 'react';
+import { Loader } from '../Loader';
 
 export const Cart: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart);
@@ -20,6 +21,7 @@ export const Cart: React.FC = () => {
     category,
     searchParams,
     setSearchParams,
+    isLoading,
   } = useRecipes();
 
   const filteredSelectedRecipes = cart.filter(recipe => {
@@ -83,6 +85,10 @@ export const Cart: React.FC = () => {
   };
 
   const combinedIngredients = getAllIngredients();
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div>

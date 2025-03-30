@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useRecipes } from '../../hooks/useRecipes';
 import { usePagination } from '../../hooks/usePagination';
 import { FilterPanel } from '../FilterPanel';
+import { Loader } from '../Loader';
 
 export const HomePage: React.FC = () => {
   const {
@@ -14,6 +15,7 @@ export const HomePage: React.FC = () => {
     category,
     searchParams,
     setSearchParams,
+    isLoading,
   } = useRecipes();
 
   const {
@@ -25,6 +27,10 @@ export const HomePage: React.FC = () => {
     goToPage,
     getPagination,
   } = usePagination(filteredRecipes);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="page">

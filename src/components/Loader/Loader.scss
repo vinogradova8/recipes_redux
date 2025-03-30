@@ -1,0 +1,17 @@
+
+
+.loader {
+  padding-top: 50px;
+  background: #fff;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+
+
+  &__image {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+  }
+}
