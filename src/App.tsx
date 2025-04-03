@@ -1,7 +1,10 @@
 import React from 'react';
-import './App.scss';
 import { Outlet } from 'react-router-dom';
 
 export const App: React.FC = () => {
-  return <Outlet />;
+  return (
+    <div className="bg-green-600 p-8">
+      <Outlet />
+    </div>
+  );
 };

@@ -38,16 +38,16 @@ export const FilterPanel: React.FC<Props> = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col items-start gap-4 mb-10">
       <input
-        className="input"
+        className="p-2 rounded"
         type="text"
         placeholder="Search for a recipe..."
         value={searchValue}
         onChange={handleSetQuerySearchParameter}
       />
       <select
-        className="select"
+        className="p-2 rounded"
         value={category}
         onChange={handleSetCategorySearchParameter}
       >
@@ -58,6 +58,6 @@ export const FilterPanel: React.FC<Props> = ({
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };

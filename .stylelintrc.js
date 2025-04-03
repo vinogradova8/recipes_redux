@@ -1,4 +1,6 @@
 module.exports = {
-  extends: "@mate-academy/stylelint-config",
-  rules: {}
+  extends: ['stylelint-config-standard', 'stylelint-config-tailwindcss'],
+  rules: {
+    'at-rule-no-unknown': null,
+  },
 };

@@ -5,6 +5,7 @@ import { useRecipes } from '../../hooks/useRecipes';
 import { usePagination } from '../../hooks/usePagination';
 import { FilterPanel } from '../FilterPanel';
 import { Loader } from '../Loader';
+import { Button } from '../ui/button';
 
 export const HomePage: React.FC = () => {
   const {
@@ -36,6 +37,7 @@ export const HomePage: React.FC = () => {
     <div className="page">
       <header className="header">
         <h1>Recipes</h1>
+
         <Link className="link" to={`/recipe/cart`}>
           Cart
         </Link>
@@ -60,30 +62,40 @@ export const HomePage: React.FC = () => {
         )}
       </div>
       {totalPages > 1 && (
-        <div className="pagination">
-          <button onClick={prevPage} disabled={currentPage === 1}>
+        <div className="flex gap-2 items-center">
+          <Button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+            variant="secondary"
+          >
             Prev
-          </button>
+          </Button>
 
           {getPagination().map((page, index) => (
             <span key={index}>
               {typeof page === 'number' ? (
-                <button
+                <Button
                   onClick={() => goToPage(page)}
                   disabled={currentPage === page}
                   className={currentPage === page ? 'active' : ''}
+                  variant="secondary"
+                  size="sm"
                 >
                   {page}
-                </button>
+                </Button>
               ) : (
                 <span> ... </span>
               )}
             </span>
           ))}
 
-          <button onClick={nextPage} disabled={currentPage === totalPages}>
+          <Button
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+            variant="secondary"
+          >
             Next
-          </button>
+          </Button>
         </div>
       )}
     </div>

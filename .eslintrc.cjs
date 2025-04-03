@@ -11,12 +11,19 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:cypress/recommended',
+    'prettier',
   ],
   overrides: [
     {
-      files: ['**/*.spec.jsx'],
+      files: ['*.ts', '*.tsx'],
       rules: {
         'react/jsx-filename-extension': ['off'],
+      },
+      parser: '@typescript-eslint/parser',
+      settings: {
+        'import/resolver': {
+          typescript: {},
+        },
       },
     },
   ],
@@ -36,8 +43,19 @@ module.exports = {
     'react-hooks',
     '@typescript-eslint',
     'prettier',
+    'import',
   ],
   rules: {
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
     // JS
     semi: 'off',
     '@typescript-eslint/semi': ['error', 'always'],
@@ -110,7 +128,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
-    '@typescript-eslint/indent': ['error', 2],
+    '@typescript-eslint/indent': 'off',
     '@typescript-eslint/ban-types': [
       'error',
       {
@@ -118,6 +136,16 @@ module.exports = {
         types: {
           '{}': false,
         },
+      },
+    ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
       },
     ],
   },

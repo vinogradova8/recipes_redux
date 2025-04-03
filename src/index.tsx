@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import store from './store';
+import './index.css';
 
 const queryClient = new QueryClient();
 
@@ -16,18 +17,19 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<App />}></Route>
-          <Route index element={<HomePage />}></Route>
-          <Route path="/recipe/:itemId" element={<RecipeDetailsPage />} />
-          <Route path="/recipe/cart" element={<Cart />} />
-          <Route
-            path="*"
-            element={
-              <h3 style={{ padding: 30 }} className="title">
-                Page not found
-              </h3>
-            }
-          ></Route>
+          <Route path="/" element={<App />}>
+            <Route index element={<HomePage />} />
+            <Route path="/recipe/:itemId" element={<RecipeDetailsPage />} />
+            <Route path="/recipe/cart" element={<Cart />} />
+            <Route
+              path="*"
+              element={
+                <h3 style={{ padding: 30 }} className="title">
+                  Page not found
+                </h3>
+              }
+            ></Route>
+          </Route>
         </Routes>
       </HashRouter>
 

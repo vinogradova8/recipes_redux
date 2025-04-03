@@ -5,6 +5,7 @@ import './RecipeCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { addToCart, removeFromCart } from '../../features/cart';
+import { Button } from '../ui/button';
 
 interface CardProps {
   recipe: RecipeFull;
@@ -44,12 +45,21 @@ export const Card: React.FC<CardProps> = ({ recipe }) => {
       )}
 
       <div className="card__actions">
-        <button type="button" onClick={handleAddToCart} disabled={isSelected}>
+        <Button
+          type="button"
+          onClick={handleAddToCart}
+          disabled={isSelected}
+          variant="add"
+        >
           {isSelected ? 'Added' : 'Add to cart'}
-        </button>
-        <button onClick={handleRemoveRecipe} disabled={!isSelected}>
+        </Button>
+        <Button
+          onClick={handleRemoveRecipe}
+          disabled={!isSelected}
+          variant="destructive"
+        >
           Remove
-        </button>
+        </Button>
       </div>
     </div>
   );
